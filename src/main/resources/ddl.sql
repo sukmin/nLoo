@@ -33,11 +33,11 @@ CREATE TABLE secret_room (
 	
 );
 
-#구역 대기
-CREATE TABLE section_wait (
+#구역 노크
+CREATE TABLE section_knock (
 
 	seq BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	building_seq BIGINT NOT NULL,
+	section_seq BIGINT NOT NULL,
 	reg_ymdt DATETIME NOT NULL
 
 );

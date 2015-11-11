@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +26,12 @@ public class TestController {
 	public List<Test> test(){
 		logger.info("i need money");
 		return testService.getAll();
+	}
+	
+	@RequestMapping("/test-jsp")
+	public String testJsp(Model model){
+		model.addAttribute("hello", "안녕");
+		return "test";
 	}
 
 }
