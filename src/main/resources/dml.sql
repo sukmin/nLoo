@@ -12,6 +12,6 @@ nick_nm
 '남자화장실'
 ); 
 
-INSERT INTO secret_room ( section_seq , nick_nm ) VALUES ( 1, '입구방향칸' );
-INSERT INTO secret_room ( section_seq , nick_nm ) VALUES ( 1, '중간칸' );
-INSERT INTO secret_room ( section_seq , nick_nm ) VALUES ( 1, '안쪽칸' );
+INSERT INTO secret_room ( section_seq , nick_nm , modify_ymdt) VALUES ( 1, '입구방향칸', NOW() );
+INSERT INTO secret_room ( section_seq , nick_nm , modify_ymdt ) VALUES ( 1, '중간칸', NOW() );
+INSERT INTO secret_room ( section_seq , nick_nm ,modify_ymdt) VALUES ( 1, '안쪽칸', NOW() );

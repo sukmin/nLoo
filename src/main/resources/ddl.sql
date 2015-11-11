@@ -29,7 +29,10 @@ CREATE TABLE secret_room (
 		
 	seq BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	section_seq BIGINT NOT NULL,
-	nick_nm VARCHAR(100)
+	nick_nm VARCHAR(100),
+	use_cnt BIGINT DEFAULT 0,
+	modify_ymdt DATETIME,
+	stat ENUM('USE','UNUSE','FIX') NOT NULL DEFAULT 'UNUSE' 
 	
 );
 
@@ -42,13 +45,15 @@ CREATE TABLE section_knock (
 
 );
 
-#이용
-CREATE TABLE secret_room_use (
+#성능을 위해 노크 테이블에 인덱스 추가
+CREATE INDEX idx_section_seq ON section_knock ( section_seq );
+
+#이용내역
+CREATE TABLE secret_room_history (
 
 	seq BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	secret_room_seq BIGINT NOT NULL,
-	start_reg_ymdt DATETIME NOT NULL,
-	end_reg_ymdt DATETIME
+	start_ymdt DATETIME NOT NULL,
+	end_ymdt DATETIME
 
 );
-
