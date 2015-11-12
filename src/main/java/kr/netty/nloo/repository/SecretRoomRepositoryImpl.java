@@ -1,6 +1,9 @@
 package kr.netty.nloo.repository;
 
+import java.util.List;
+
 import kr.netty.nloo.model.SecretRoom;
+import kr.netty.nloo.model.SecretRoomInfo;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,11 @@ public class SecretRoomRepositoryImpl implements SecretRoomRepository {
 	@Override
 	public Integer updateUnuseStats(Long secretRoomSequene) {
 		return sqlSessionTemplate.update(NAMESPACE + ".updateUnuseStats", secretRoomSequene);
+	}
+
+	@Override
+	public List<SecretRoomInfo> selectSecretRoomInfo(Long sectionSequence) {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectSecretRoomInfo", sectionSequence);
 	}
 
 }

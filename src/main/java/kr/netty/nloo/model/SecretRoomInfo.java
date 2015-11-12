@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("sectionViewRoom")
-public class SectionViewRoom {
+@Alias("secretRoomInfo")
+public class SecretRoomInfo {
 
 	private Long secretRoomSequence;
 	private String nickName;

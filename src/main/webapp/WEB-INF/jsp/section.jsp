@@ -35,6 +35,19 @@
 	</div>
 	<div class="section2">
 	</div>
-</div>	
+</div>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+var oDataManager = {
+		
+		/*멤버*/
+		
+		
+		/*메소드*/
+		
+}
+
+</script>
 </body>
 </html>

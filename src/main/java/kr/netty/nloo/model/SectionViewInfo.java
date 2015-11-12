@@ -12,7 +12,7 @@ public class SectionViewInfo {
 	private String buildingName;
 	private String sex;
 	private String floor;
-	private List<SectionViewRoom> rooms;
+	private List<SecretRoomInfo> rooms;
 
 	public Long getSectionSequence() {
 		return sectionSequence;
@@ -38,11 +38,11 @@ public class SectionViewInfo {
 		this.buildingName = buildingName;
 	}
 
-	public List<SectionViewRoom> getRooms() {
+	public List<SecretRoomInfo> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(List<SectionViewRoom> rooms) {
+	public void setRooms(List<SecretRoomInfo> rooms) {
 		this.rooms = rooms;
 	}
 

@@ -9,7 +9,7 @@
 		<result column="building_name" property="buildingName" />
 		<result column="sex" property="sex" />
 		<result column="floor" property="floor" />
-		<collection property="rooms" ofType="sectionViewRoom">
+		<collection property="rooms" ofType="secretRoomInfo">
 			<id column="secret_room_seq" property="secretRoomSequence"/>
 			<result column="secret_room_nick_nm" property="nickName"/>
 			<result column="secret_room_modify_ymdt" property="modifyYmdt"/>
