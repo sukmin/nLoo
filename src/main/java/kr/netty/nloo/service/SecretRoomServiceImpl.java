@@ -66,7 +66,7 @@ public class SecretRoomServiceImpl implements SecretRoomService {
 			return Result.NOT_USED;
 		}
 
-		// 현재 싸고 있는 놈이 없다면 사용상태로 등록
+		// 현재 싸고 있는 놈이 있다면 미사용상태로 등록
 		int changedRowCount = secretRoomRepository.updateUnuseStats(secretRoomSequene);
 		if (changedRowCount == 1) {
 			secretRoomHistoryRepository.updateEndYmdt(room.getCurrentHistorySequence());

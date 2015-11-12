@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Common */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-size:12px;line-height:1.25em}
+body{position:relative;height:100%;color:#000;-webkit-text-size-adjust:none}
+
+img,fieldset{border:none}
+ul,ol{list-style:none}
+em,address{font-style:normal;word-break:break-all}
+a{color:#000;text-decoration:none}
+table{border-collapse:collapse}
+input,button,select,textarea{outline:none}
+textarea{resize:none}
+hr{display:none !important}
+.u_hc,.u_skip{visibility:hidden;overflow:hidden;position:absolute;left:-1000em;width:0;height:0;font-size:0;line-height:0}
+.dim{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;opacity:.7;}
+::-webkit-input-placeholder{color:#000}
+#ct{width:100%;min-width:320px;text-align:center;background:#F1F8E0}
+#ct.attend{background-color:#F0F1F1}
+input[placeholder], [placeholder], *[placeholder] {color:#676e71 !important}
+::-webkit-input-placeholder { /* WebKit browsers */color:#676e71}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */color:#676e71;opacity:1}
+::-moz-placeholder { /* Mozilla Firefox 19+ */color:#676e71; opacity:1}
+:-ms-input-placeholder { /* Internet Explorer 10+ */color:#676e71}
+body,html,#ct{height:100%}
+
+.spot{height:100px;background:#81F79F}
+
+.section1{height:300px;background:#F5EFFB}
+.section1 .sr{height:50px;background:#F2F5A9}
+
+.section2{height:100px;background:#FBFBEF}

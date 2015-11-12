@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.netty.nloo.repository.SectionRepository">
+
+	<resultMap type="sectionViewInfo" id="sectionViewInfo">
+		<id column="seq" property="sectionSequence" />
+		<result column="building_seq" property="buildingSequence" />
+		<result column="building_name" property="buildingName" />
+		<result column="sex" property="sex" />
+		<result column="floor" property="floor" />
+		<collection property="rooms" ofType="sectionViewRoom">
+			<id column="secret_room_seq" property="secretRoomSequence"/>
+			<result column="secret_room_nick_nm" property="nickName"/>
+			<result column="secret_room_modify_ymdt" property="modifyYmdt"/>
+			<result column="secret_room_stat" property="status"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectViewInfo" resultMap="sectionViewInfo" parameterType="Long">
+		SELECT
+			s.seq AS 'seq',
+			b.seq AS 'building_seq',
+			b.nm AS 'building_name',
+			s.sex AS 'sex',
+			s.floor AS 'floor',
+			sr.seq AS 'secret_room_seq',
+			sr.nick_nm AS 'secret_room_nick_nm',
+			sr.modify_ymdt AS 'secret_room_modify_ymdt',
+			sr.stat AS 'secret_room_stat'
+		FROM
+			section s
+				INNER JOIN
+			building b
+				ON s.building_seq = b.seq
+					LEFT OUTER JOIN
+				secret_room sr
+					ON s.seq = sr.section_seq	
+		WHERE
+			s.seq = #{sectionSequence}
+	</select>
+	
+</mapper>
