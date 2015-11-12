@@ -23,19 +23,19 @@ public class SecretRoomServiceImpl implements SecretRoomService {
 	private SecretRoomHistoryRepository secretRoomHistoryRepository;
 
 	@Override
-	public SecretRoomServiceResult use(Long secretRoomSequene) {
+	public Result use(Long secretRoomSequene) {
 
 		SecretRoom room = secretRoomRepository.selectSecretRoom(secretRoomSequene);
 
 		// 존재하지 않는 화장실일 경우를 방어
 		if (Objects.isNull(room)) {
-			return SecretRoomServiceResult.NOT_EXIST;
+			return Result.NOT_EXIST;
 		}
 
 		// 현재 싸고있다면 진행하지 않음
 		if (room.isUsed()) {
 			logger.info(" {} 번 화장실은 이미 사용중", secretRoomSequene);
-			return SecretRoomServiceResult.ALREADY;
+			return Result.ALREADY;
 		}
 
 		// 현재 싸고 있는 놈이 없다면 사용상태로 등록
@@ -43,27 +43,27 @@ public class SecretRoomServiceImpl implements SecretRoomService {
 		if (changedRowCount == 1) {
 			secretRoomHistoryRepository.insertSecretRoomHistory(secretRoomSequene);
 			logger.info(" {} 번 화장실은 사용중으로 등록", secretRoomSequene);
-			return SecretRoomServiceResult.SUCCESS;
+			return Result.SUCCESS;
 		} else {
 			logger.info(" {} 번 화장실은 이미 사용중.조회후 등록 사이에 다른 사람이 등록한 경우", secretRoomSequene);
-			return SecretRoomServiceResult.ALREADY;
+			return Result.ALREADY;
 		}
 	}
 
 	@Override
-	public SecretRoomServiceResult unuse(Long secretRoomSequene) {
+	public Result unuse(Long secretRoomSequene) {
 
 		SecretRoom room = secretRoomRepository.selectSecretRoom(secretRoomSequene);
 
 		// 존재하지 않는 화장실일 경우를 방어
 		if (Objects.isNull(room)) {
-			return SecretRoomServiceResult.NOT_EXIST;
+			return Result.NOT_EXIST;
 		}
 
 		// 현재 싸고있지 않다면 진행하지 않음
 		if (room.isUnused()) {
 			logger.info(" {} 번 화장실은 사용중이 아니므로, 사용중지상태로 바꿀 수 없습니다.", secretRoomSequene);
-			return SecretRoomServiceResult.NOT_USED;
+			return Result.NOT_USED;
 		}
 
 		// 현재 싸고 있는 놈이 없다면 사용상태로 등록
@@ -71,10 +71,10 @@ public class SecretRoomServiceImpl implements SecretRoomService {
 		if (changedRowCount == 1) {
 			secretRoomHistoryRepository.updateEndYmdt(room.getCurrentHistorySequence());
 			logger.info(" {} 번 화장실은 사용중으로 등록", secretRoomSequene);
-			return SecretRoomServiceResult.SUCCESS;
+			return Result.SUCCESS;
 		} else {
 			logger.info(" {} 번 화장실은 이미 사용중이 아님.조회후 등록 사이에 다른 사람이 등록한 경우", secretRoomSequene);
-			return SecretRoomServiceResult.NOT_USED;
+			return Result.NOT_USED;
 		}
 	}
 
