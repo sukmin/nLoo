@@ -9,5 +9,26 @@ public interface SectionService {
 
 	public SectionInfo getInfo(Long sectionSequence);
 	public SectionViewInfo getViewInfo(Long sectionSequence) throws NotFoundException;
+	
+	public enum Result {
+		SUCCESS("S001", "성공하였습니다."),// 성공
+		NOT_EXIST("S002", "화장실이 없습니다.");// 해당 sectionSequence에 해당하는 화장실이 없음.
+		
+		private String code;
+		private String message;
+		
+		private Result(String code, String message) {
+			this.code = code;
+			this.message = message;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+	}
 
 }

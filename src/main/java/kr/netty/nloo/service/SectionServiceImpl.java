@@ -1,24 +1,42 @@
 package kr.netty.nloo.service;
 
+import java.util.List;
 import java.util.Objects;
 
+import kr.netty.nloo.model.SecretRoomInfo;
 import kr.netty.nloo.model.SectionInfo;
 import kr.netty.nloo.model.SectionViewInfo;
+import kr.netty.nloo.repository.SecretRoomRepository;
 import kr.netty.nloo.repository.SectionRepository;
 
 import org.apache.ibatis.javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SectionServiceImpl implements SectionService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(SectionServiceImpl.class);
+	
 	@Autowired
 	private SectionRepository sectionRepository;
+	
+	@Autowired
+	private SecretRoomRepository secretRoomRepository;
 
 	@Override
 	public SectionInfo getInfo(Long sectionSequence) {
-		return null;
+		List<SecretRoomInfo> rooms = secretRoomRepository.selectSecretRoomInfo(sectionSequence);
+		
+		// sectionSequence번 섹션에 room이 하나도 없는 경우 
+		if(rooms.isEmpty()){
+			logger.info("{}번 섹션에 해당하는 room이 하나도 없습니다");
+			return new SectionInfo(Result.NOT_EXIST,rooms);
+		}
+		
+		return new SectionInfo(Result.SUCCESS,rooms);
 	}
 
 	@Override

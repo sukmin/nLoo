@@ -22,10 +22,10 @@
 		<div class="sr">
 			<div><c:out value="${ room.nickName }"/> : <c:out value="${ room.status }"/></div>
 			<c:if test="${room.status == 'USE'}">
-				<a href="#">사용아님 상태로 변경하기</a>
+				<a href="#" data-seq="<c:out value="${ room.secretRoomSequence }"/>">사용아님 상태로 변경하기</a>
 			</c:if>
 			<c:if test="${room.status == 'UNUSE'}">
-				<a href="#">사용중 상태로 변경하기</a>
+				<a href="#" data-seq="<c:out value="${ room.secretRoomSequence }"/>">사용중 상태로 변경하기</a>
 			</c:if>
 			<c:if test="${room.status == 'FIX'}">
 				<span>현재 사용불가능</span>
@@ -45,8 +45,13 @@ var oDataManager = {
 		
 		
 		/*메소드*/
-		
-}
+		start : function(){
+			
+		},
+		init : function(){
+			
+		}
+};
 
 </script>
 </body>
