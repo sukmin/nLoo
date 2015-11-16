@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.netty.nloo.repository.BuildingRepository">
+	
+	<resultMap type="buildingViewInfo" id="buildingViewInfo">
+		<id column="seq" property="sequence" />
+		<result column="building_nm" property="buildingName"/>
+		<collection property="sections" ofType="sectionWithBuildingViewInfo">
+			<id column="section_seq" property="sectionSequence"/>
+			<result column="section_nick_nm" property="nickName"/>
+			<result column="section_floor" property="floor"/>
+			<result column="section_sex" property="sex"/>
+			<result column="section_room_count" property="roomCount"/>
+			<result column="section_use_room_count" property="useRoomCount"/>
+			<result column="section_current_knock_count" property="currentKnockCount"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectViewInfo" parameterType="Long" resultMap="buildingViewInfo">
+		SELECT
+			b.seq AS 'seq',
+			b.nm AS 'building_nm',
+			s.seq AS 'section_seq',
+			s.nick_nm AS 'section_nick_nm',
+			s.floor AS 'section_floor',
+			s.sex AS 'section_sex',
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					secret_room sr
+				WHERE
+					sr.section_seq = s.seq
+			) AS 'section_room_count',
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					secret_room sr
+				WHERE
+					sr.section_seq = s.seq
+					AND stat = 'USE'
+			) AS 'section_use_room_count',
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					section_knock k
+				WHERE
+					k.section_seq = s.seq
+					AND k.reg_ymdt > DATE_ADD(NOW(),INTERVAL -15 MINUTE)
+			) AS 'section_current_knock_count'
+		FROM
+			building b
+			LEFT OUTER JOIN
+			section s ON b.seq = s.building_seq
+		WHERE
+			b.seq = #{buildingSequence}
+	</select>
+	
+</mapper>
