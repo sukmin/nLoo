@@ -9,6 +9,7 @@
 		<result column="building_name" property="buildingName" />
 		<result column="sex" property="sex" />
 		<result column="floor" property="floor" />
+		<result column="current_knock_count" property="currentKnockCount" />
 		<collection property="rooms" ofType="secretRoomInfo">
 			<id column="secret_room_seq" property="secretRoomSequence"/>
 			<result column="secret_room_nick_nm" property="nickName"/>
@@ -27,7 +28,16 @@
 			sr.seq AS 'secret_room_seq',
 			sr.nick_nm AS 'secret_room_nick_nm',
 			sr.modify_ymdt AS 'secret_room_modify_ymdt',
-			sr.stat AS 'secret_room_stat'
+			sr.stat AS 'secret_room_stat',
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					section_knock k
+				WHERE
+					k.section_seq = s.seq
+					AND k.reg_ymdt > DATE_ADD(NOW(),INTERVAL -15 MINUTE)
+			) AS 'current_knock_count'
 		FROM
 			section s
 				INNER JOIN

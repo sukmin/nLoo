@@ -13,6 +13,7 @@ public class SectionViewInfo {
 	private String sex;
 	private String floor;
 	private List<SecretRoomInfo> rooms;
+	private Integer currentKnockCount;
 
 	public Long getSectionSequence() {
 		return sectionSequence;
@@ -60,6 +61,14 @@ public class SectionViewInfo {
 
 	public void setFloor(String floor) {
 		this.floor = floor;
+	}
+
+	public Integer getCurrentKnockCount() {
+		return currentKnockCount;
+	}
+
+	public void setCurrentKnockCount(Integer currentKnockCount) {
+		this.currentKnockCount = currentKnockCount;
 	}
 
 }

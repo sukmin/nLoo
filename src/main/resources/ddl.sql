@@ -24,6 +24,8 @@ CREATE TABLE section (
 
 );
 
+CREATE INDEX idx_building_seq ON section ( building_seq );
+
 #화장실 한칸
 CREATE TABLE secret_room (
 		
@@ -36,6 +38,8 @@ CREATE TABLE secret_room (
 	
 );
 
+CREATE INDEX idx_section_seq ON secret_room ( section_seq );
+
 #구역 노크
 CREATE TABLE section_knock (
 
@@ -45,8 +49,7 @@ CREATE TABLE section_knock (
 
 );
 
-#성능을 위해 노크 테이블에 인덱스 추가
-CREATE INDEX idx_section_seq ON section_knock ( section_seq );
+CREATE INDEX idx_section_seq_reg_ymdt ON section_knock (section_seq , reg_ymdt)
 
 #이용내역
 CREATE TABLE secret_room_history (
@@ -57,3 +60,5 @@ CREATE TABLE secret_room_history (
 	end_ymdt DATETIME
 
 );
+
+CREATE INDEX idx_secret_room_seq ON secret_room_history ( secret_room_seq );

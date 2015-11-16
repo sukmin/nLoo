@@ -9,6 +9,7 @@ public interface SectionService {
 
 	public SectionInfo getInfo(Long sectionSequence);
 	public SectionViewInfo getViewInfo(Long sectionSequence) throws NotFoundException;
+	public Result knock(Long sectionSequence);
 	
 	public enum Result {
 		SUCCESS("S001", "성공하였습니다."),// 성공

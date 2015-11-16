@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.netty.nloo.repository.SectionKnockRepository">
+
+	<insert id="insertKnock" parameterType="Long">
+		INSERT INTO section_knock(
+			section_seq,
+			reg_ymdt
+		) VALUES (
+			#{sectionSequence},
+			NOW()
+		)
+	</insert>
+	
+</mapper>

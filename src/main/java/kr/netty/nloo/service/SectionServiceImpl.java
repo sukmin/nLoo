@@ -7,6 +7,7 @@ import kr.netty.nloo.model.SecretRoomInfo;
 import kr.netty.nloo.model.SectionInfo;
 import kr.netty.nloo.model.SectionViewInfo;
 import kr.netty.nloo.repository.SecretRoomRepository;
+import kr.netty.nloo.repository.SectionKnockRepository;
 import kr.netty.nloo.repository.SectionRepository;
 
 import org.apache.ibatis.javassist.NotFoundException;
@@ -25,6 +26,9 @@ public class SectionServiceImpl implements SectionService {
 	
 	@Autowired
 	private SecretRoomRepository secretRoomRepository;
+	
+	@Autowired
+	private SectionKnockRepository sectionKnockRepository;
 
 	@Override
 	public SectionInfo getInfo(Long sectionSequence) {
@@ -48,6 +52,17 @@ public class SectionServiceImpl implements SectionService {
 		}
 		
 		return viewInfo;
+	}
+
+	@Override
+	public Result knock(Long sectionSequence) {
+		
+		int changedLine = sectionKnockRepository.insertKnock(sectionSequence);
+		if(changedLine == 1){
+			return SectionService.Result.SUCCESS;
+		}else{
+			return SectionService.Result.NOT_EXIST;
+		}
 	}
 
 }

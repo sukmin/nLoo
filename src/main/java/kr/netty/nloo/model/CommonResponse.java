@@ -1,6 +1,7 @@
 package kr.netty.nloo.model;
 
 import kr.netty.nloo.service.SecretRoomService;
+import kr.netty.nloo.service.SectionService;
 
 public class CommonResponse {
 
@@ -16,6 +17,11 @@ public class CommonResponse {
 	}
 	
 	public CommonResponse(SecretRoomService.Result result){
+		this.code = result.getCode();
+		this.message = result.getMessage();
+	}
+	
+	public CommonResponse(SectionService.Result result){
 		this.code = result.getCode();
 		this.message = result.getMessage();
 	}

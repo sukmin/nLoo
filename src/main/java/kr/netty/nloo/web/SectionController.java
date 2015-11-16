@@ -1,5 +1,6 @@
 package kr.netty.nloo.web;
 
+import kr.netty.nloo.model.CommonResponse;
 import kr.netty.nloo.model.SectionInfo;
 import kr.netty.nloo.model.SectionViewInfo;
 import kr.netty.nloo.service.SectionService;
@@ -35,6 +36,13 @@ public class SectionController {
 	@ResponseBody
 	public SectionInfo info(@RequestParam("sectionSequence") Long sectionSequence){
 		return sectionService.getInfo(sectionSequence);
+	}
+	
+	@RequestMapping("/knock")
+	@ResponseBody
+	public CommonResponse knock(@RequestParam("sectionSequence") Long sectionSequence){
+		SectionService.Result result = sectionService.knock(sectionSequence);
+		return new CommonResponse(result);
 	}
 
 }
