@@ -7,6 +7,7 @@
 		<id column="seq" property="sectionSequence" />
 		<result column="building_seq" property="buildingSequence" />
 		<result column="building_name" property="buildingName" />
+		<result column="nick_nm" property="nickName"/>
 		<result column="sex" property="sex" />
 		<result column="floor" property="floor" />
 		<result column="current_knock_count" property="currentKnockCount" />
@@ -25,6 +26,7 @@
 			b.nm AS 'building_name',
 			s.sex AS 'sex',
 			s.floor AS 'floor',
+			s.nick_nm AS 'nick_nm',
 			sr.seq AS 'secret_room_seq',
 			sr.nick_nm AS 'secret_room_nick_nm',
 			sr.modify_ymdt AS 'secret_room_modify_ymdt',

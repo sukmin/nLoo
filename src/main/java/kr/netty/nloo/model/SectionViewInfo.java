@@ -10,6 +10,7 @@ public class SectionViewInfo {
 	private Long sectionSequence;
 	private Long buildingSequence;
 	private String buildingName;
+	private String nickName;
 	private String sex;
 	private String floor;
 	private List<SecretRoomInfo> rooms;
@@ -37,6 +38,14 @@ public class SectionViewInfo {
 
 	public void setBuildingName(String buildingName) {
 		this.buildingName = buildingName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public List<SecretRoomInfo> getRooms() {
