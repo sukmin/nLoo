@@ -16,7 +16,7 @@ public class BuildingController {
 	
 	@RequestMapping(value={"/","/index"})
 	public String index(Model model) throws NotFoundException{
-		
+		model.addAttribute("viewInfo", buildingService.getViewInfo(1L));
 		return "building";
 	}
 
