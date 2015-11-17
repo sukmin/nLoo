@@ -21,7 +21,7 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <a href="/index"><h1>
+            <a href="/index/${ viewInfo.sequence }"><h1>
                     <c:out value="${ viewInfo.buildingName }" />
                 </h1></a>
         </div>
@@ -111,20 +111,20 @@
     					},oSelf.nIntervalTime)
     				},
     				init : function(){
-    					
+
     					var oSelf = this;
-    					
+
     					jQuery(oSelf.sButtonSelector).click(function(event){
-    						
+
     						event.preventDefault();
     						oSelf.refresh();
-    						
+
     					});
-    					
+
     					oSelf.start();
     				}
     		};
-    		
+
     		jQuery(document).ready(function(){
     			oRefreshManager.init();
     		});

@@ -21,13 +21,14 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <a href="/index"><h1>
+            <a href="/index/${ viewInfo.buildingSequence }"><h1>
                     <c:out value="${ viewInfo.buildingName }" />
                 </h1></a> <a href="/section/${ viewInfo.sectionSequence }">
                 <h3>
                     <c:out value="${ viewInfo.floor }" />
                     :
-                    <c:out value="${ viewInfo.nickName }" />
+                    <c:out value="${ viewInfo.nickName }" /> [쾌적하군요]<!-- [청소가필요해요] --> <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </h3>
             </a>
         </div>
@@ -42,39 +43,39 @@
                             </h4>
                             <p class="list-group-item-text">
                                 <c:if test="${room.status == 'USE'}">
-                                    <span>현재 배변중!</span>
+                                    <span class="glyphicon glyphicon-flash"> 현재 사용중!</span>
                                 </c:if>
                                 <c:if test="${room.status == 'UNUSE'}">
-                                    <span>현재 비어있습니다!</span>
+                                    <span class="glyphicon glyphicon-heart-empty"> 비어있습니다!</span>
                                 </c:if>
                                 <c:if test="${room.status == 'FIX'}">
-                                    <span>현재 배변중!</span>
+                                    <span class="glyphicon glyphicon-exclamation-sign"> 이용불가!</span>
                                 </c:if>
                             </p>
                         </div>
                         <div class="col-xs-6">
                             <c:if test="${room.status == 'USE'}">
-                                <button type="button" class="btn btn-success button_use" data-seq="${room.secretRoomSequence}">배변성공!</button>
+                                <button type="button" class="btn btn-success button_use" data-seq="${room.secretRoomSequence}">나갑니다! <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'UNUSE'}">
-                                <button type="button" class="btn btn-warning button_unuse" data-seq="${room.secretRoomSequence}">내가싸기!</button>
+                                <button type="button" class="btn btn-warning button_unuse" data-seq="${room.secretRoomSequence}">들어가요! <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'FIX'}">
-                                <button type="button" class="btn btn-info" disabled="disabled">이용불가!</button>
+                                <button type="button" class="btn btn-info" disabled="disabled">이용불가! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></button>
                             </c:if>
                         </div>
                     </div>
                 </div>
             </c:forEach>
         </div>
-        
+
         <div class="panel panel-default well well-lg">
             <div class="panel-body">
                 <p>최근 15분사이에 ${ viewInfo.currentKnockCount } 명이 노크하였습니다.</p>
                 <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">나도 노크하기!</a>
             </div>
         </div>
-        
+
         <div class="panel panel-default">
             <div class="panel-heading text-center" id="div_refresh_text">20초 후 자동 새로고침..</div>
             <div class="panel-body">
@@ -84,12 +85,16 @@
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-default btn-lg btn-block" id="button_refresh">지금 새로고침!</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="button_refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
                 </div>
             </div>
         </div>
-        
+
     </div>
+<!--     <div class="embed-responsive embed-responsive-16by9">
+  		<iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen=""></iframe>
+	</div> -->
+
     <input type="hidden" id="sectionSequence" value="<c:out value="${ viewInfo.sectionSequence }"/>">
     <script src="/static/js/jquery-1.11.3.min.js"></script>
     <script src="/static/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
@@ -149,7 +154,7 @@
 
             oSelf.sUseSelector = "." + oSelf.sUseClassName;
             oSelf.sUnuseSelector = "." + oSelf.sUnuseClassName;
-            
+
             jQuery(document).on("click", oSelf.sUseSelector, function(event) {
 
                 event.preventDefault();
@@ -168,7 +173,7 @@
 
         }
     };
-    
+
     var oKnockManager = {
     		/*멤버*/
     		sKncokButtonSelector : "#a_knock",
@@ -194,16 +199,16 @@
     		},
     		init : function(){
     			var oSelf = this;
-    			
+
     			jQuery(oSelf.sKncokButtonSelector).click(function(event){
-    				
+
     				event.preventDefault();
     				oSelf.knock();
-    				
+
     			});
     		}
     };
-    
+
     var oRefreshManager = {
 			/*멤버*/
 			sRefreshUrl : "/section/" + jQuery("#sectionSequence").val(),
@@ -253,16 +258,16 @@
 				},oSelf.nIntervalTime)
 			},
 			init : function(){
-				
+
 				var oSelf = this;
-				
+
 				jQuery(oSelf.sButtonSelector).click(function(event){
-					
+
 					event.preventDefault();
 					oSelf.refresh();
-					
+
 				});
-				
+
 				oSelf.start();
 			}
 	};
@@ -270,7 +275,7 @@
     jQuery(document).ready(function() {
         oDataManager.init();
         oKnockManager.init();
-        oRefreshManager.init();
+        //oRefreshManager.init();
     });
 </script>
 </body>

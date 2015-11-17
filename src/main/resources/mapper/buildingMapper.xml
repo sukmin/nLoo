@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.netty.nloo.repository.BuildingRepository">
-	
+
 	<resultMap type="buildingViewInfo" id="buildingViewInfo">
 		<id column="seq" property="sequence" />
+		<result column="seq" property="sequence"/>
 		<result column="building_nm" property="buildingName"/>
 		<collection property="sections" ofType="sectionWithBuildingViewInfo">
 			<id column="section_seq" property="sectionSequence"/>
@@ -16,7 +17,7 @@
 			<result column="section_current_knock_count" property="currentKnockCount"/>
 		</collection>
 	</resultMap>
-	
+
 	<select id="selectViewInfo" parameterType="Long" resultMap="buildingViewInfo">
 		SELECT
 			b.seq AS 'seq',
@@ -58,5 +59,5 @@
 		WHERE
 			b.seq = #{buildingSequence}
 	</select>
-	
+
 </mapper>
