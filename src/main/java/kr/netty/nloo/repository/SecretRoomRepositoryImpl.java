@@ -39,4 +39,27 @@ public class SecretRoomRepositoryImpl implements SecretRoomRepository {
 		return sqlSessionTemplate.selectList(NAMESPACE + ".selectSecretRoomInfo", sectionSequence);
 	}
 
+
+	@Override
+	public List<SecretRoom> selectAllSecretRooms() {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectAllSecretRooms");
+	}
+
+	@Override
+	public void saveSecretRoom(SecretRoom section) {
+		sqlSessionTemplate.insert(NAMESPACE + ".saveSecretRoom", section);
+
+	}
+
+	@Override
+	public void updateSecretRoom(SecretRoom section) {
+		sqlSessionTemplate.update(NAMESPACE + ".updateSecretRoom", section);
+
+	}
+
+	@Override
+	public void deleteSecretRoom(Long sequence) {
+		sqlSessionTemplate.insert(NAMESPACE + ".deleteSecretRoom", sequence);
+
+	}
 }

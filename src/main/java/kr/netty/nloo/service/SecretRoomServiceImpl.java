@@ -1,5 +1,6 @@
 package kr.netty.nloo.service;
 
+import java.util.List;
 import java.util.Objects;
 
 import kr.netty.nloo.model.SecretRoom;
@@ -78,4 +79,24 @@ public class SecretRoomServiceImpl implements SecretRoomService {
 		}
 	}
 
+
+	@Override
+	public List<SecretRoom> getAllSecretRooms() {
+		return secretRoomRepository.selectAllSecretRooms();
+	}
+
+	@Override
+	public void saveSecretRoom(SecretRoom building) {
+		secretRoomRepository.saveSecretRoom(building);
+	}
+
+	@Override
+	public void updateSecretRoom(SecretRoom building) {
+		secretRoomRepository.updateSecretRoom(building);
+	}
+
+	@Override
+	public void deleteSecretRoom(Long buildingSequence) {
+		secretRoomRepository.deleteSecretRoom(buildingSequence);
+	}
 }
