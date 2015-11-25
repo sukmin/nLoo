@@ -60,4 +60,33 @@
 			b.seq = #{buildingSequence}
 	</select>
 
+
+
+	<resultMap id="result" type="building">
+        <result property="sequence" column="seq"/>
+        <result property="name" column="nm"/>
+    </resultMap>
+
+	<select id="selectAllBuildings" resultMap="result">
+		SELECT seq, nm
+		FROM building
+	</select>
+
+	<insert id="saveBuilding" parameterType="building">
+		INSERT INTO building (nm)
+    	VALUE (#{name})
+	</insert>
+
+	<update id="updateBuilding" parameterType="building">
+  		UPDATE building
+  		SET
+  			nm = #{name}
+  		where seq = #{sequence}
+	</update>
+
+	<delete id="deleteBuilding" parameterType="Long">
+    	DELETE FROM building
+    	WHERE seq = #{sequence}
+    </delete>
+
 </mapper>

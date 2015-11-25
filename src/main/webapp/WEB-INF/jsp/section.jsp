@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>nLoo</title>
+<title>U.R.Gent 1</title>
 
 <link href="/static/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/static/css/nloo.css?1" rel="stylesheet">
@@ -27,8 +28,8 @@
                 <h3>
                     <c:out value="${ viewInfo.floor }" />
                     :
-                    <c:out value="${ viewInfo.nickName }" /> [쾌적하군요]<!-- [청소가필요해요] --> <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <c:out value="${ viewInfo.nickName }" /> <!--[쾌적하군요] [청소가필요해요]  <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> -->
                 </h3>
             </a>
         </div>
@@ -72,7 +73,7 @@
         <div class="panel panel-default well well-lg">
             <div class="panel-body">
                 <p>최근 15분사이에 ${ viewInfo.currentKnockCount } 명이 노크하였습니다.</p>
-                <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">나도 노크하기!</a>
+                <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">급똥이에요!! 똑똑!!</a>
             </div>
         </div>
 
@@ -90,6 +91,68 @@
             </div>
         </div>
 
+
+
+        <div class="panel panel-default well well-lg collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+				<input type="text" class="form-control" placeholder="comment : I feel very fine...max70" id="comment" aria-describedby="basic-addon1" size="70" maxlength="70">
+				</div>
+				<button type="submit" class="btn btn-default button_graffiti_add">즐거운낙서</button>
+			</form>
+		</div>
+
+		<div class="alert alert-danger" role="alert">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span>
+			unlike 많은 낙서는 <span class="glyphicon glyphicon-scissors"></span> 지울꺼에요!!&nbsp;화장실도 청결하게, 감정배설도 청결하게!!
+		</div>
+<%--
+        <div class="panel panel-default well well-lg">
+            <div class="panel-body">
+				<form:form commandName="graffiti" name="form1">
+				<form:hidden path="sequence"/>
+					<div>
+					  <form:input type="text" class="form-control" path="comment" placeholder="comment : I feel very fine"/> <button type="submit" class="btn btn-default button_graffiti_add">Graffiti</button>
+					</div>
+				</form:form>
+			</div>
+		</div>
+ --%>
+
+		<div class="panel panel-default">
+
+		  <div class="panel-heading"><span class="badge">${fn:length(graffitis)}</span> graffiti(s)  </div>
+			<!-- Table -->
+			<table class="table">
+				<tbody>
+
+					<c:forEach items="${graffitis}" var="graffiti">
+						<tr>
+							<td>
+								<span id="comments"><c:out value="${graffiti.comment}"/></span>
+
+								<button class="btn btn-success glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}" type="button"></button>
+
+<%-- 								<span class="label label-success glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}">&nbsp;</span>
+								<span class="label label-danger glyphicon glyphicon-thumbs-down button_graffiti_unlike" data-seq="${graffiti.sequence}">&nbsp;</span> --%>
+
+							</td>
+							<td>
+								<button class="btn btn-default glyphicon glyphicon-scissors button_graffiti_unlike" data-seq="${graffiti.sequence}" type="button"></button>
+								<%-- <span class="badge">${graffiti.likeCount}</span> --%>
+								<%-- <span class="badge">${graffiti.unlikeCount}</span> --%>
+							</td>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
     </div>
 <!--     <div class="embed-responsive embed-responsive-16by9">
   		<iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen=""></iframe>
@@ -97,6 +160,7 @@
 
     <input type="hidden" id="sectionSequence" value="<c:out value="${ viewInfo.sectionSequence }"/>">
     <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/autolink.js"></script>
     <script src="/static/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     var oDataManager = {
@@ -209,6 +273,100 @@
     		}
     };
 
+    var oGraffitiManager = {
+
+            /*멤버*/
+            sAddClassName : "button_graffiti_add",
+            sLikeClassName : "button_graffiti_like",
+            sUnlikeClassName : "button_graffiti_unlike",
+    		nSectionSequence : jQuery("#sectionSequence").val(),
+
+            add : function() {
+                var oSelf = this;
+
+                jQuery.ajax({
+                    url : "/graffiti/user-add",
+                    async : true,
+                    dataType : "json",
+                    data : {
+                        "sectionSequence" : oSelf.nSectionSequence,
+                        "comment" : jQuery("#comment").val()
+                    },
+                    type : 'post',
+                    success : function(oResponse) {
+                        if (oResponse.code != "S001") {
+                            alert(oResponse.message);
+                        }
+                        location.href = "/section/" + oSelf.nSectionSequence;
+                    }
+                });
+            },
+            like : function(nCommentSeq) {
+                var oSelf = this;
+
+                jQuery.ajax({
+                    url : "/graffiti/user-like",
+                    async : true,
+                    dataType : "json",
+                    data : {
+                        "sequence" : nCommentSeq
+                    },
+                    type : 'post',
+                    success : function(oResponse) {
+                        if (oResponse.code != "S001") {
+                            alert(oResponse.message);
+                        }
+                        location.href = "/section/" + oSelf.nSectionSequence;
+                    }
+                });
+            },
+            unlike : function(nCommentSeq) {
+                var oSelf = this;
+
+                jQuery.ajax({
+                    url : "/graffiti/user-unlike",
+                    async : true,
+                    dataType : "json",
+                    data : {
+                        "sequence" : nCommentSeq
+                    },
+                    type : 'post',
+                    success : function(oResponse) {
+                        if (oResponse.code != "S001") {
+                            alert(oResponse.message);
+                        }
+                        location.href = "/section/" + oSelf.nSectionSequence;
+                    }
+                });
+            },
+            init : function() {
+
+                var oSelf = this;
+
+                oSelf.sAddSelector = "." + oSelf.sAddClassName;
+                oSelf.sLikeSelector = "." + oSelf.sLikeClassName;
+                oSelf.sUnlikeSelector = "." + oSelf.sUnlikeClassName;
+
+                jQuery(document).on("click", oSelf.sAddSelector, function(event) {
+                    event.preventDefault();
+                    oSelf.add();
+                });
+
+                jQuery(document).on("click", oSelf.sLikeSelector, function(event) {
+                    event.preventDefault();
+                    var nSeq = jQuery(this).data("seq");
+                    oSelf.like(nSeq);
+                });
+
+                jQuery(document).on("click", oSelf.sUnlikeSelector, function(event) {
+                    event.preventDefault();
+                    var nSeq = jQuery(this).data("seq");
+                    oSelf.unlike(nSeq);
+                });
+            }
+
+    };
+
     var oRefreshManager = {
 			/*멤버*/
 			sRefreshUrl : "/section/" + jQuery("#sectionSequence").val(),
@@ -275,7 +433,11 @@
     jQuery(document).ready(function() {
         oDataManager.init();
         oKnockManager.init();
-        //oRefreshManager.init();
+        /* oRefreshManager.init(); */
+        oGraffitiManager.init();
+
+
+        alert(autolink(jQuery("#comments").val()));
     });
 </script>
 </body>

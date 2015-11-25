@@ -10,13 +10,14 @@ import kr.netty.nloo.repository.TestRepository;
 
 @Service
 public class TestService {
-	
+
 	@Autowired
 	private TestRepository testRepository;
-	
+
+
 	public List<Test> getAll(){
 		return testRepository.selectAll();
-		
+
 	}
 
 }

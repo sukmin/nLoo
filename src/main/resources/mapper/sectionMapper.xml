@@ -18,7 +18,7 @@
 			<result column="secret_room_stat" property="status"/>
 		</collection>
 	</resultMap>
-	
+
 	<select id="selectViewInfo" resultMap="sectionViewInfo" parameterType="Long">
 		SELECT
 			s.seq AS 'seq',
@@ -47,9 +47,34 @@
 				ON s.building_seq = b.seq
 					LEFT OUTER JOIN
 				secret_room sr
-					ON s.seq = sr.section_seq	
+					ON s.seq = sr.section_seq
 		WHERE
 			s.seq = #{sectionSequence}
 	</select>
-	
+
+
+	<select id="selectAllSections" resultType="section">
+		SELECT seq as sequence, building_seq as buildingSequence, floor, sex, nick_nm as nickName
+		FROM section
+	</select>
+
+	<insert id="saveSection" parameterType="section">
+		INSERT INTO section (building_seq, floor, sex, nick_nm)
+    	VALUE (#{buildingSequence}, #{floor}, #{sex}, #{nickName})
+	</insert>
+
+	<update id="updateSection" parameterType="section">
+  		UPDATE section
+  		SET
+  			building_seq = #{buildingSequence},
+  			floor = #{floor},
+  			sex = #{sex},
+  			nick_nm = #{nickName}
+  		where seq = #{sequence}
+	</update>
+
+	<delete id="deleteSection" parameterType="Long">
+    	DELETE FROM section
+    	WHERE seq = #{sequence}
+    </delete>
 </mapper>
