@@ -8,12 +8,10 @@
 				seq as sequence, section_seq as sectionSequence, comment, url_type as urlType, url, like_cnt as likeCount
 				, unlike_cnt as unlikeCount, reg_ymdt as regYmdt, modify_ymdt as modifyYmdt
 		FROM graffiti
-		WHERE unlike_cnt &lt; 5
 		<if test="value != 0">
-		AND section_seq = #{sectionSequence}
+		WHERE section_seq = #{sectionSequence}
 		</if>
-		ORDER BY like_cnt DESC, modify_ymdt DESC
-		LIMIT 100
+		ORDER BY like_cnt+(unlike_cnt*0.4) Desc, modify_ymdt desc
 	</select>
 	<!-- FLOOR(RAND() * 10) random count filter -->
 

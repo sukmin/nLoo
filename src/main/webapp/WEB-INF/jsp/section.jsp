@@ -49,13 +49,13 @@
                                 <c:out value="${room.nickName}" />
 
                                 <c:if test="${room.status == 'USE'}">
-                                    <span class="glyphicon glyphicon-flash"></span>사용중!
+                                    &nbsp;사용중!
                                 </c:if>
                                 <c:if test="${room.status == 'UNUSE'}">
-                                    <span class="glyphicon glyphicon-heart-empty"></span>비어있습니다!
+                                    &nbsp;비어있습니다!
                                 </c:if>
                                 <c:if test="${room.status == 'FIX'}">
-                                    <span class="glyphicon glyphicon-exclamation-sign"></span>이용불가!
+                                    &nbsp;이용불가!
                                 </c:if>
                             </h5>
                         </div>
@@ -77,21 +77,21 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>최근 15분  <span class="badge">${ viewInfo.currentKnockCount }</span> 명이 급해요.</p>
-                <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">Urgent !! BANG!! BANG!!</a>
+                최근 15분  <span class="badge">${ viewInfo.currentKnockCount }</span> 명이 급해요
+                <button type="button" class="btn btn-danger" id="a_knock">정말 급합니다<span class="glyphicon glyphicon-send" aria-hidden="true"></span></button><br>
+                <small>아시는 분은 아실꺼에요. 게임은 나중에.</small>
             </div>
         </div>
 
 		<div class="alert alert-danger" role="alert">
-			<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-			<span class="sr-only">Error:</span>
-			unlike 많은 낙서는 <span class="glyphicon glyphicon-scissors"></span> 지웁니다.&nbsp;화장실도 청결하게, 감정배설도 청결하게.
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		화장실도 청결하게, 감정배설도 청결하게.
 		</div>
 
 		<div class="panel panel-default">
 			<form name="graffitiForm" onsubmit="oGraffitiManager.add()">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="graffiti : very fine" id="comment" aria-describedby="basic-addon2">
+				<input type="text" class="form-control" placeholder="input" id="comment" aria-describedby="basic-addon2">
 				<span type="submit" class="input-group-addon button_graffiti_add" id="basic-addon2">좋은낙서&nbsp;<span class="badge">${fn:length(graffitis)}</span></span>
 			</div>
 			</form>
@@ -103,9 +103,10 @@
 						<tr>
 							<td>
 								<span id="comments"><c:out value="${graffiti.comment}"/></span>
-								<button class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}" type="button"></button>
 							</td>
 							<td align="right">
+								<button class="btn btn-success btn-xs button_graffiti_like" data-seq="${graffiti.sequence}" type="button">
+								<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<span class="badge">${graffiti.likeCount}</span></button>
 								<button class="btn btn-warning btn-xs button_graffiti_unlike right" data-seq="${graffiti.sequence}" type="button">
 								<span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;<span class="badge">${graffiti.unlikeCount}</span></button>
 							</td>
