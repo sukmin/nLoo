@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.netty.nloo.repository.GraffitiRepository">
+
+	<select id="selectAllGraffitis" resultType="graffiti">
+		SELECT seq as sequence, section_seq as sectionSequence, comment, url_type as urlType, url, like_cnt as likeCount,
+		unlike_cnt as unlikeCount, reg_ymdt as regYmdt, modify_ymdt as modifyYmdt
+		FROM graffiti
+		WHERE unlike_cnt &lt; 5
+		ORDER BY like_cnt DESC
+		LIMIT 100
+	</select>
+	<!-- FLOOR(RAND() * 10) random count filter -->
+
+	<insert id="saveGraffiti" parameterType="graffiti">
+		INSERT INTO graffiti (section_seq, comment, url_type, url, reg_ymdt)
+    	VALUE (#{sectionSequence}, #{comment}, #{urlType}, #{url}, now())
+	</insert>
+
+	<update id="updateGraffiti" parameterType="graffiti">
+  		UPDATE graffiti
+  		SET
+  			section_seq = #{sectionSequence},
+  			comment = #{comment},
+  			urlType = #{urlType},
+  			url = #{url},
+  			<if test="likeCount">
+  			like_cnt = #{likeCount},
+  			</if>
+  			<if test="unlikeCount">
+  			unlike_cnt = #{unlikeCount},
+  			</if>
+  			modify_ymdt = now()
+  		where seq = #{sequence}
+	</update>
+
+	<update id="updateGraffitiLike" parameterType="Long">
+  		UPDATE graffiti
+  		SET
+  			like_cnt = like_cnt + 1,
+  			modify_ymdt = now()
+  		where seq = #{sequence}
+	</update>
+
+	<update id="updateGraffitiUnlike" parameterType="Long">
+  		UPDATE graffiti
+  		SET
+  			unlike_cnt = unlike_cnt + 1,
+  			modify_ymdt = now()
+  		where seq = #{sequence}
+	</update>
+
+	<delete id="deleteGraffiti" parameterType="Long">
+    	DELETE FROM graffiti
+    	WHERE seq = #{sequence}
+    </delete>
+</mapper>

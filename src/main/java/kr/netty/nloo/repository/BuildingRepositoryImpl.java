@@ -2,7 +2,6 @@ package kr.netty.nloo.repository;
 
 import kr.netty.nloo.model.Building;
 import kr.netty.nloo.model.BuildingViewInfo;
-import kr.netty.nloo.model.User;
 
 import java.util.List;
 
@@ -47,44 +46,4 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 		sqlSessionTemplate.insert(NAMESPACE + ".deleteBuilding", sequence);
 
 	}
-
-//
-//	@Override
-//	public void saveUser(Building building) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	@Override
-//	public void updateUser(Building building) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	@Override
-//	public void deleteUser(Long buildingSequence) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//
-//	@Override
-//	public void saveUser(User user) {
-//		sqlSessionTemplate.insert(NAMESPACE + ".saveUser", user);
-//
-//	}
-//
-//	@Override
-//	public void updateUser(User user) {
-//		sqlSessionTemplate.update(NAMESPACE + ".updateUser", user);
-//
-//	}
-//
-//	@Override
-//	public void deleteUser(int id) {
-//		sqlSessionTemplate.insert(NAMESPACE + ".deleteUser", id);
-//	}
-//
-
-
 }

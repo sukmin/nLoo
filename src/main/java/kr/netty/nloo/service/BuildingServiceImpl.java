@@ -1,6 +1,7 @@
 package kr.netty.nloo.service;
 
 import java.util.List;
+
 import java.util.Objects;
 
 import org.apache.ibatis.javassist.NotFoundException;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import kr.netty.nloo.model.Building;
 import kr.netty.nloo.model.BuildingViewInfo;
-import kr.netty.nloo.model.User;
 import kr.netty.nloo.repository.BuildingRepository;
 
 @Service

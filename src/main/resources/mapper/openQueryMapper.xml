@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.netty.nloo.repository.OpenQueryRepository">
+
+	<resultMap type="java.util.HashMap" id="powerMap"/>
+
+	<select id="selectTables" resultMap="powerMap" parameterType="String">
+		SELECT TABLE_NAME, TABLE_ROWS, AUTO_INCREMENT,TABLE_COMMENT
+		FROM INFORMATION_SCHEMA.TABLES
+		 WHERE TABLE_SCHEMA = #{dbName}
+	</select>
+
+
+	<select id="selectTableInfo" resultMap="powerMap" parameterType="map">
+		SELECT TABLE_NAME, COLUMN_NAME,
+		ORDINAL_POSITION, COLUMN_DEFAULT,IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, EXTRA, COLUMN_COMMENT
+		FROM INFORMATION_SCHEMA.COLUMNS
+		 WHERE TABLE_NAME = #{tableName}
+		  AND TABLE_SCHEMA = #{dbName}
+	</select>
+
+
+</mapper>
