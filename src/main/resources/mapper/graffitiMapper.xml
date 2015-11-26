@@ -3,19 +3,23 @@
 
 <mapper namespace="kr.netty.nloo.repository.GraffitiRepository">
 
-	<select id="selectAllGraffitis" resultType="graffiti">
-		SELECT seq as sequence, section_seq as sectionSequence, comment, url_type as urlType, url, like_cnt as likeCount,
-		unlike_cnt as unlikeCount, reg_ymdt as regYmdt, modify_ymdt as modifyYmdt
+	<select id="selectAllGraffitis" resultType="graffiti" parameterType="Long">
+		SELECT
+				seq as sequence, section_seq as sectionSequence, comment, url_type as urlType, url, like_cnt as likeCount
+				, unlike_cnt as unlikeCount, reg_ymdt as regYmdt, modify_ymdt as modifyYmdt
 		FROM graffiti
 		WHERE unlike_cnt &lt; 5
-		ORDER BY like_cnt DESC
+		<if test="value != 0">
+		AND section_seq = #{sectionSequence}
+		</if>
+		ORDER BY like_cnt DESC, modify_ymdt DESC
 		LIMIT 100
 	</select>
 	<!-- FLOOR(RAND() * 10) random count filter -->
 
 	<insert id="saveGraffiti" parameterType="graffiti">
-		INSERT INTO graffiti (section_seq, comment, url_type, url, reg_ymdt)
-    	VALUE (#{sectionSequence}, #{comment}, #{urlType}, #{url}, now())
+		INSERT INTO graffiti (section_seq, comment, url_type, url, reg_ymdt, modify_ymdt)
+    	VALUE (#{sectionSequence}, #{comment}, #{urlType}, #{url}, now(), now())
 	</insert>
 
 	<update id="updateGraffiti" parameterType="graffiti">

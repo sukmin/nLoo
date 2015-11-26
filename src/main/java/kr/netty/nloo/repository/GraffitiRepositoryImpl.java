@@ -20,8 +20,8 @@ public class GraffitiRepositoryImpl implements GraffitiRepository {
 
 
 	@Override
-	public List<Graffiti> selectAllGraffitis() {
-		return sqlSessionTemplate.selectList(NAMESPACE + ".selectAllGraffitis");
+	public List<Graffiti> selectAllGraffitis(Long sectionSequence) {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectAllGraffitis", sectionSequence);
 	}
 
 	@Override

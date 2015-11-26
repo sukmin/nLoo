@@ -7,7 +7,7 @@ import kr.netty.nloo.model.Graffiti;
 
 public interface GraffitiService {
 
-	public List<Graffiti> getAllGraffitis();
+	public List<Graffiti> getAllGraffitis(Long sectionSequence);
 
 	public void saveGraffiti(Graffiti graffiti);
 

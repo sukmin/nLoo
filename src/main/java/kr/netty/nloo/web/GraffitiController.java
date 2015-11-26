@@ -32,7 +32,7 @@ public class GraffitiController {
 
 	@RequestMapping(value="/admin/graffitis", method=RequestMethod.GET)
 	public String showForm(ModelMap model){
-		List<Graffiti> graffitis = graffitiService.getAllGraffitis();
+		List<Graffiti> graffitis = graffitiService.getAllGraffitis(0L);
 		model.addAttribute("graffitis", graffitis);
 		Graffiti graffiti = new Graffiti();
 		graffiti.setSequence(1L);
@@ -49,7 +49,7 @@ public class GraffitiController {
 			graffiti = new Graffiti();
 			mv.addObject("graffiti", graffiti);
 		}
-		mv.addObject("graffitis", graffitiService.getAllGraffitis());
+		mv.addObject("graffitis", graffitiService.getAllGraffitis(0L));
 		return mv;
 	}
 
@@ -62,7 +62,7 @@ public class GraffitiController {
 			graffiti = new Graffiti();
 			mv.addObject("graffiti", graffiti);
 		}
-		mv.addObject("graffitis", graffitiService.getAllGraffitis());
+		mv.addObject("graffitis", graffitiService.getAllGraffitis(0L));
 		return mv;
 	}
 
@@ -75,7 +75,7 @@ public class GraffitiController {
 			graffiti = new Graffiti();
 			mv.addObject("graffiti", graffiti);
 		}
-		mv.addObject("graffitis", graffitiService.getAllGraffitis());
+		mv.addObject("graffitis", graffitiService.getAllGraffitis(0L));
 		return mv;
 	}
 }

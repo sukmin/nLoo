@@ -22,14 +22,20 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <a href="/index/${ viewInfo.buildingSequence }"><h1>
-                    <c:out value="${ viewInfo.buildingName }" />
-                </h1></a> <a href="/section/${ viewInfo.sectionSequence }">
+<%--
+            <a href="/index/${ viewInfo.buildingSequence }">
+            	<h1><c:out value="${ viewInfo.buildingName }" /></h1>
+            </a>
+
+ --%>       <a href="/section/${ viewInfo.sectionSequence }">
                 <h3>
                     <c:out value="${ viewInfo.floor }" />
                     :
                     <c:out value="${ viewInfo.nickName }" /> <!--[쾌적하군요] [청소가필요해요]  <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> -->
+                	<a href="/index/${ viewInfo.buildingSequence }">
+                		<small>[<c:out value="${ viewInfo.buildingName }" />]</small>
+                	</a>
                 </h3>
             </a>
         </div>
@@ -38,31 +44,30 @@
             <c:forEach items="${viewInfo.rooms}" var="room" varStatus="i">
                 <div class="list-group-item">
                     <div class="row">
-                        <div class="col-xs-6">
-                            <h4 class="list-group-item-heading">
+                        <div class="col-xs-7">
+                            <h5 class="list-group-item-heading">
                                 <c:out value="${room.nickName}" />
-                            </h4>
-                            <p class="list-group-item-text">
+
                                 <c:if test="${room.status == 'USE'}">
-                                    <span class="glyphicon glyphicon-flash"> 현재 사용중!</span>
+                                    <span class="glyphicon glyphicon-flash"></span>사용중!
                                 </c:if>
                                 <c:if test="${room.status == 'UNUSE'}">
-                                    <span class="glyphicon glyphicon-heart-empty"> 비어있습니다!</span>
+                                    <span class="glyphicon glyphicon-heart-empty"></span>비어있습니다!
                                 </c:if>
                                 <c:if test="${room.status == 'FIX'}">
-                                    <span class="glyphicon glyphicon-exclamation-sign"> 이용불가!</span>
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>이용불가!
                                 </c:if>
-                            </p>
+                            </h5>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-5">
                             <c:if test="${room.status == 'USE'}">
                                 <button type="button" class="btn btn-success button_use" data-seq="${room.secretRoomSequence}">나갑니다! <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'UNUSE'}">
-                                <button type="button" class="btn btn-warning button_unuse" data-seq="${room.secretRoomSequence}">들어가요! <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-warning btn-xs button_unuse" data-seq="${room.secretRoomSequence}">들어가요! <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'FIX'}">
-                                <button type="button" class="btn btn-info" disabled="disabled">이용불가! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-info btn-xs" disabled="disabled">이용불가! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></button>
                             </c:if>
                         </div>
                     </div>
@@ -70,59 +75,26 @@
             </c:forEach>
         </div>
 
-        <div class="panel panel-default well well-lg">
-            <div class="panel-body">
-                <p>최근 15분사이에 ${ viewInfo.currentKnockCount } 명이 노크하였습니다.</p>
-                <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">급똥이에요!! 똑똑!!</a>
-            </div>
-        </div>
-
         <div class="panel panel-default">
-            <div class="panel-heading text-center" id="div_refresh_text">20초 후 자동 새로고침..</div>
             <div class="panel-body">
-                <div class="progress">
-                    <div id="div_refresh_progressbar" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20" style="width: 0%">
-                        <span id="span_refresh_progressbar_sr" class="sr-only">0%</span>
-                    </div>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-default btn-lg btn-block" id="button_refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                </div>
+                <p>최근 15분  <span class="badge">${ viewInfo.currentKnockCount }</span> 명이 급해요.</p>
+                <a class="btn btn-danger btn-lg" href="#" role="button" id="a_knock">Urgent !! BANG!! BANG!!</a>
             </div>
         </div>
-
-
-
-        <div class="panel panel-default well well-lg collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-			<form class="navbar-form navbar-left" role="search">
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="comment : I feel very fine...max70" id="comment" aria-describedby="basic-addon1" size="70" maxlength="70">
-				</div>
-				<button type="submit" class="btn btn-default button_graffiti_add">즐거운낙서</button>
-			</form>
-		</div>
 
 		<div class="alert alert-danger" role="alert">
-		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-		<span class="sr-only">Error:</span>
-			unlike 많은 낙서는 <span class="glyphicon glyphicon-scissors"></span> 지울꺼에요!!&nbsp;화장실도 청결하게, 감정배설도 청결하게!!
+			<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			unlike 많은 낙서는 <span class="glyphicon glyphicon-scissors"></span> 지웁니다.&nbsp;화장실도 청결하게, 감정배설도 청결하게.
 		</div>
-<%--
-        <div class="panel panel-default well well-lg">
-            <div class="panel-body">
-				<form:form commandName="graffiti" name="form1">
-				<form:hidden path="sequence"/>
-					<div>
-					  <form:input type="text" class="form-control" path="comment" placeholder="comment : I feel very fine"/> <button type="submit" class="btn btn-default button_graffiti_add">Graffiti</button>
-					</div>
-				</form:form>
-			</div>
-		</div>
- --%>
 
 		<div class="panel panel-default">
-
-		  <div class="panel-heading"><span class="badge">${fn:length(graffitis)}</span> graffiti(s)  </div>
+			<form name="graffitiForm" onsubmit="oGraffitiManager.add()">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="graffiti : very fine" id="comment" aria-describedby="basic-addon2">
+				<span type="submit" class="input-group-addon button_graffiti_add" id="basic-addon2">좋은낙서&nbsp;<span class="badge">${fn:length(graffitis)}</span></span>
+			</div>
+			</form>
 			<!-- Table -->
 			<table class="table">
 				<tbody>
@@ -131,17 +103,11 @@
 						<tr>
 							<td>
 								<span id="comments"><c:out value="${graffiti.comment}"/></span>
-
-								<button class="btn btn-success glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}" type="button"></button>
-
-<%-- 								<span class="label label-success glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}">&nbsp;</span>
-								<span class="label label-danger glyphicon glyphicon-thumbs-down button_graffiti_unlike" data-seq="${graffiti.sequence}">&nbsp;</span> --%>
-
+								<button class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up button_graffiti_like" data-seq="${graffiti.sequence}" type="button"></button>
 							</td>
-							<td>
-								<button class="btn btn-default glyphicon glyphicon-scissors button_graffiti_unlike" data-seq="${graffiti.sequence}" type="button"></button>
-								<%-- <span class="badge">${graffiti.likeCount}</span> --%>
-								<%-- <span class="badge">${graffiti.unlikeCount}</span> --%>
+							<td align="right">
+								<button class="btn btn-warning btn-xs button_graffiti_unlike right" data-seq="${graffiti.sequence}" type="button">
+								<span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;<span class="badge">${graffiti.unlikeCount}</span></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -150,17 +116,12 @@
 			</table>
 
 		</div>
-
-
-
     </div>
-<!--     <div class="embed-responsive embed-responsive-16by9">
-  		<iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen=""></iframe>
-	</div> -->
+
 
     <input type="hidden" id="sectionSequence" value="<c:out value="${ viewInfo.sectionSequence }"/>">
+
     <script src="/static/js/jquery-1.11.3.min.js"></script>
-    <script src="/static/js/autolink.js"></script>
     <script src="/static/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     var oDataManager = {
@@ -283,6 +244,10 @@
 
             add : function() {
                 var oSelf = this;
+                var graffiti = jQuery("#comment").val();
+                if(graffiti.trim().length == 0) {
+                	graffiti = "very fine";
+                }
 
                 jQuery.ajax({
                     url : "/graffiti/user-add",
@@ -290,7 +255,7 @@
                     dataType : "json",
                     data : {
                         "sectionSequence" : oSelf.nSectionSequence,
-                        "comment" : jQuery("#comment").val()
+                        "comment" : graffiti
                     },
                     type : 'post',
                     success : function(oResponse) {
@@ -436,8 +401,6 @@
         /* oRefreshManager.init(); */
         oGraffitiManager.init();
 
-
-        alert(autolink(jQuery("#comments").val()));
     });
 </script>
 </body>

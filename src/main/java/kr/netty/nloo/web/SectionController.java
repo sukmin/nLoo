@@ -42,7 +42,7 @@ public class SectionController {
 		SectionViewInfo sectionViewInfo = sectionService.getViewInfo(sectionSequence);
 		model.addAttribute("viewInfo", sectionViewInfo);
 
-		List<Graffiti> graffitis = graffitiService.getAllGraffitis();
+		List<Graffiti> graffitis = graffitiService.getAllGraffitis(sectionSequence);
 		model.addAttribute("graffitis", graffitis);
 		Graffiti graffiti = new Graffiti();
 		graffiti.setSequence(1L);

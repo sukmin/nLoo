@@ -21,8 +21,8 @@ public class GraffitiServiceImpl implements GraffitiService {
 
 
 	@Override
-	public List<Graffiti> getAllGraffitis() {
-		return graffitiRepository.selectAllGraffitis();
+	public List<Graffiti> getAllGraffitis(Long sectionSequence) {
+		return graffitiRepository.selectAllGraffitis(sectionSequence);
 	}
 
 	@Override
