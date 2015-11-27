@@ -33,7 +33,7 @@
                     :
                     <c:out value="${ viewInfo.nickName }" /> <!--[쾌적하군요] [청소가필요해요]  <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> -->
-                	<a href="/index/${ viewInfo.buildingSequence }">
+                	<a href="/${ viewInfo.buildingSequence }">
                 		<small>[<c:out value="${ viewInfo.buildingName }" />]</small>
                 	</a>
                 </h3>

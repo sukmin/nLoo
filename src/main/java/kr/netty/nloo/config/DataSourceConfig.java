@@ -10,7 +10,6 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource("classpath:properties/common.properties")
-@PropertySource("classpath:properties/messages.properties")
 public class DataSourceConfig {
 
 	@Autowired
@@ -19,8 +18,6 @@ public class DataSourceConfig {
 	@Bean(name = "dataSource")
 	@Description("DataSource configuration for the tomcat jdbc connection pool")
 	public DataSource dataSource() throws ClassNotFoundException {
-
-//		Class.forName("com.mysql.jdbc.Driver");
 
 		// See here for more details on commons-dbcp versus tomcat-jdbc:
 		// http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/-->
