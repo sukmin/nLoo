@@ -5,8 +5,15 @@
 
 	<select id="selectAllGraffitis" resultType="graffiti" parameterType="Long">
 		SELECT
-				seq as sequence, section_seq as sectionSequence, comment, url_type as urlType, url, like_cnt as likeCount
-				, unlike_cnt as unlikeCount, reg_ymdt as regYmdt, modify_ymdt as modifyYmdt
+				seq as sequence,
+				section_seq as sectionSequence,
+				comment,
+				url_type as urlType,
+				url,
+				like_cnt as likeCount,
+				unlike_cnt as unlikeCount,
+				reg_ymdt as regYmdt,
+				modify_ymdt as modifyYmdt
 		FROM graffiti
 		<if test="value != 0">
 		WHERE section_seq = #{sectionSequence}

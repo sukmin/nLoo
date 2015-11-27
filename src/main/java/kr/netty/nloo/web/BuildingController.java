@@ -23,11 +23,14 @@ public class BuildingController {
 	@Autowired
 	private BuildingService buildingService;
 
-	@RequestMapping(value={"/","/index","/index/{sequence}"})
-	public String index(@PathVariable("sequence") Long sequence,Model model) throws NotFoundException{
-		if(sequence == null) {
-			sequence = 1L;
-		}
+	@RequestMapping(value={"/","/index"})
+	public String index(Model model) throws NotFoundException{
+		model.addAttribute("viewInfo", buildingService.getViewInfo(1L));
+		return "building";
+	}
+	
+	@RequestMapping("/{sequence}")
+	public String sequence(@PathVariable(value="sequence") Long sequence,Model model) throws NotFoundException{
 		model.addAttribute("viewInfo", buildingService.getViewInfo(sequence));
 		return "building";
 	}
