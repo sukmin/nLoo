@@ -194,7 +194,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<webappDirectory>../deploy</webappDirectory>
+					<webappDirectory>./deploy</webappDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
