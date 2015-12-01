@@ -21,7 +21,7 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <a href="/index/${ viewInfo.sequence }"><h1>
+            <a href="/${ viewInfo.sequence }"><h1>
                     <c:out value="${ viewInfo.buildingName }" />
                 </h1></a>
         </div>

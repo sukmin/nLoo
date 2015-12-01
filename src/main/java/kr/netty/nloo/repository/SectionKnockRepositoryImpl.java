@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SectionKnockRepositoryImpl implements SectionKnockRepository {
-	
+
 	private static final String NAMESPACE = "kr.netty.nloo.repository.SectionKnockRepository";
 
 	@Autowired
@@ -17,6 +17,11 @@ public class SectionKnockRepositoryImpl implements SectionKnockRepository {
 	@Override
 	public int insertKnock(Long sectionSequence) {
 		return sqlSessionTemplate.insert(NAMESPACE + ".insertKnock", sectionSequence);
+	}
+
+	@Override
+	public Long selectKnockCount(Long sectionSequence) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectKnockCount", sectionSequence);
 	}
 
 }

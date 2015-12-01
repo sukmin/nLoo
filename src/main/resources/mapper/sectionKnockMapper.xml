@@ -12,5 +12,15 @@
 			NOW()
 		)
 	</insert>
-	
+
+	<select id="selectKnockCount" parameterType="Long" resultType="Long">
+		SELECT
+			COUNT(*) AS 'current_knock_count'
+		FROM
+			section_knock k
+		WHERE
+			k.section_seq = #{sectionSequence}
+			AND k.reg_ymdt > DATE_ADD(NOW(),INTERVAL -15 MINUTE)
+	</select>
+
 </mapper>

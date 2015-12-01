@@ -67,6 +67,11 @@ public class SectionServiceImpl implements SectionService {
 	}
 
 	@Override
+	public Long getKnockCount(Long sectionSequence) {
+		return sectionKnockRepository.selectKnockCount(sectionSequence);
+	}
+
+	@Override
 	public List<Section> getAllSections() {
 		return sectionRepository.selectAllSections();
 	}
@@ -85,4 +90,5 @@ public class SectionServiceImpl implements SectionService {
 	public void deleteSection(Long buildingSequence) {
 		sectionRepository.deleteSection(buildingSequence);
 	}
+
 }

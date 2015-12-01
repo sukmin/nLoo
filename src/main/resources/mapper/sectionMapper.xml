@@ -53,6 +53,8 @@
 	</select>
 
 
+
+
 	<select id="selectAllSections" resultType="section">
 		SELECT seq as sequence, building_seq as buildingSequence, floor, sex, nick_nm as nickName
 		FROM section

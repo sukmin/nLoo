@@ -61,7 +61,7 @@ CREATE TABLE secret_room_history (
 
 );
 
-CREATE INDEX idx_secret_room_seq ON secret_room_history ( secret_room_seq );\
+CREATE INDEX idx_secret_room_seq ON secret_room_history ( secret_room_seq );
 
 
 #낙서, 가장 읽기 좋은 70자 이내
@@ -75,6 +75,7 @@ CREATE TABLE `graffiti` (
     `like_cnt` int(10) default 0,
     `unlike_cnt` int(10) default 0,
 	`reg_ymdt` DATETIME default now(),
+	`modify_ymdt` DATETIME default now(),
     PRIMARY KEY (`seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ;

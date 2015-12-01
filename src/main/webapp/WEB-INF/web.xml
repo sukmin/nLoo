@@ -115,5 +115,9 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
         <filter-name>httpMethodFilter</filter-name>
         <servlet-name>dispatcherServlet</servlet-name>
     </filter-mapping>
+    
+    <welcome-file-list>
+    		<welcome-file>/</welcome-file>
+	</welcome-file-list>
 
 </web-app>

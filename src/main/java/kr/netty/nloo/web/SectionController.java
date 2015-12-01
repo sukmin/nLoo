@@ -61,7 +61,8 @@ public class SectionController {
 	@ResponseBody
 	public CommonResponse knock(@RequestParam("sectionSequence") Long sectionSequence){
 		SectionService.Result result = sectionService.knock(sectionSequence);
-		return new CommonResponse(result);
+		Long keyMessage = sectionService.getKnockCount(sectionSequence);
+		return new CommonResponse(result, keyMessage.toString());
 	}
 
 	@RequestMapping(value="/graffiti/user-add", method=RequestMethod.POST)

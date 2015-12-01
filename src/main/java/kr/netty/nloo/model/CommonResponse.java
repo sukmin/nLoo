@@ -8,6 +8,7 @@ public class CommonResponse {
 
 	private String code;
 	private String message;
+	private String keyMessage;
 
 	public CommonResponse() {
 	}
@@ -20,6 +21,13 @@ public class CommonResponse {
 	public CommonResponse(SecretRoomService.Result result){
 		this.code = result.getCode();
 		this.message = result.getMessage();
+	}
+
+
+	public CommonResponse(SectionService.Result result, String keyMessage){
+		this.code = result.getCode();
+		this.message = result.getMessage();
+		this.setKeyMessage(keyMessage);
 	}
 
 	public CommonResponse(SectionService.Result result){
@@ -46,6 +54,14 @@ public class CommonResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getKeyMessage() {
+		return keyMessage;
+	}
+
+	public void setKeyMessage(String keyMessage) {
+		this.keyMessage = keyMessage;
 	}
 
 }

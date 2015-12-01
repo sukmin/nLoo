@@ -33,7 +33,7 @@
                     :
                     <c:out value="${ viewInfo.nickName }" /> <!--[쾌적하군요] [청소가필요해요]  <span onClick="alert('꽤적하다+한표')" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span onClick="alert('청소해주세요+한표')" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> -->
-                	<a href="/index/${ viewInfo.buildingSequence }">
+                	<a href="/${ viewInfo.buildingSequence }">
                 		<small>[<c:out value="${ viewInfo.buildingName }" />]</small>
                 	</a>
                 </h3>
@@ -45,29 +45,28 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-xs-7">
-                            <h5 class="list-group-item-heading">
-                                <c:out value="${room.nickName}" />
-
+                            <h3 class="list-group-item-heading">
+                            [<c:out value="${room.nickName}" />]
                                 <c:if test="${room.status == 'USE'}">
-                                    &nbsp;사용중!
+                                    <span class="useMessage">사용중입니다.</span>
                                 </c:if>
                                 <c:if test="${room.status == 'UNUSE'}">
-                                    &nbsp;비어있습니다!
+                                    <span class="useMessage">비어있습니다.</span>
                                 </c:if>
                                 <c:if test="${room.status == 'FIX'}">
-                                    &nbsp;이용불가!
+                                    <span class="useMessage">이용불가</span>
                                 </c:if>
-                            </h5>
+                            </h3>
                         </div>
                         <div class="col-xs-5">
                             <c:if test="${room.status == 'USE'}">
-                                <button type="button" class="btn btn-success button_use" data-seq="${room.secretRoomSequence}">나갑니다! <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-success button_use button_inout" data-seq="${room.secretRoomSequence}" >나갑니다! <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'UNUSE'}">
-                                <button type="button" class="btn btn-warning btn-xs button_unuse" data-seq="${room.secretRoomSequence}">들어가요! <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-warning button_unuse button_inout" data-seq="${room.secretRoomSequence}">들어가요! <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
                             </c:if>
                             <c:if test="${room.status == 'FIX'}">
-                                <button type="button" class="btn btn-info btn-xs" disabled="disabled">이용불가! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-info btn-xs button_inout" disabled="disabled">이용불가! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></button>
                             </c:if>
                         </div>
                     </div>
@@ -77,7 +76,7 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                최근 15분  <span class="badge">${ viewInfo.currentKnockCount }</span> 명이 급해요
+                최근 15분  <span class="badge" id="knockCount">${ viewInfo.currentKnockCount }</span> 명이 급해요
                 <button type="button" class="btn btn-danger" id="a_knock">정말 급합니다<span class="glyphicon glyphicon-send" aria-hidden="true"></span></button><br>
                 <small>아시는 분은 아실꺼에요. 게임은 나중에.</small>
             </div>
@@ -92,7 +91,7 @@
 			<form name="graffitiForm" onsubmit="oGraffitiManager.add()">
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="input" id="comment" aria-describedby="basic-addon2">
-				<span type="submit" class="input-group-addon button_graffiti_add" id="basic-addon2">좋은낙서&nbsp;<span class="badge">${fn:length(graffitis)}</span></span>
+				<a href="#" class="input-group-addon btn button_graffiti_add" id="basic-addon2">끄적끄적</a>
 			</div>
 			</form>
 			<!-- Table -->
@@ -105,10 +104,10 @@
 								<span id="comments"><c:out value="${graffiti.comment}"/></span>
 							</td>
 							<td align="right">
-								<button class="btn btn-success btn-xs button_graffiti_like" data-seq="${graffiti.sequence}" type="button">
-								<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<span class="badge">${graffiti.likeCount}</span></button>
-								<button class="btn btn-warning btn-xs button_graffiti_unlike right" data-seq="${graffiti.sequence}" type="button">
-								<span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;<span class="badge">${graffiti.unlikeCount}</span></button>
+								<button class="btn btn-info btn-xs button_graffiti_like" data-seq="${graffiti.sequence}" type="button">
+								 좋아요<span class="badge">${graffiti.likeCount}</span></button>
+								<button class="btn btn-xs button_graffiti_unlike right" data-seq="${graffiti.sequence}" type="button">
+								 싫어요<span class="badge">${graffiti.unlikeCount}</span></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -135,9 +134,10 @@
         nSectionSequence : jQuery("#sectionSequence").val(),
 
         /*메소드*/
-        use : function(nSeq) {
-            var oSelf = this;
-
+        use : function(oSelf) {
+            //var oSelf = this;
+			var nSeq = jQuery(oSelf).data("seq");
+            //
             jQuery.ajax({
                 url : "/secret-room/use",
                 async : true,
@@ -150,13 +150,19 @@
                     if (oResponse.code != "SR001") {
                         alert(oResponse.message);
                     }
-                    location.href = "/section/" + oSelf.nSectionSequence;
+                    jQuery(oSelf).html("나갑니다! <span class='glyphicon glyphicon-log-out'></span>");
+                    var idx = jQuery(".button_inout").index(oSelf);
+                    jQuery(".useMessage").eq(idx).text("사용중입니다.");
+
+                    jQuery(oSelf).removeClass("btn-warning").removeClass("button_unuse");
+                    jQuery(oSelf).addClass("btn-success").addClass("button_use");
                 }
             });
 
         },
-        unuse : function(nSeq) {
-            var oSelf = this;
+        unuse : function(oSelf) {
+            //var oSelf = this;
+			var nSeq = jQuery(oSelf).data("seq");
 
             jQuery.ajax({
                 url : "/secret-room/unuse",
@@ -170,7 +176,12 @@
                     if (oResponse.code != "SR001") {
                         alert(oResponse.message);
                     }
-                    location.href = "/section/" + oSelf.nSectionSequence;
+                    jQuery(oSelf).html("들어가요! <span class='glyphicon glyphicon-log-in'></span>");
+                    var idx = jQuery(".button_inout").index(oSelf);
+                    jQuery(".useMessage").eq(idx).text("비어있습니다.");
+
+                    jQuery(oSelf).removeClass("btn-success").removeClass("button_use");
+                    jQuery(oSelf).addClass("btn-warning").addClass("button_unuse");
                 }
             });
         },
@@ -184,16 +195,14 @@
             jQuery(document).on("click", oSelf.sUseSelector, function(event) {
 
                 event.preventDefault();
-                var nSeq = jQuery(this).data("seq");
-                oSelf.unuse(nSeq);
+                oSelf.unuse(this);
 
             });
 
             jQuery(document).on("click", oSelf.sUnuseSelector, function(event) {
 
                 event.preventDefault();
-                var nSeq = jQuery(this).data("seq");
-                oSelf.use(nSeq);
+                oSelf.use(this);
 
             });
 
@@ -219,7 +228,8 @@
                         if (oResponse.code != "S001") {
                             alert(oResponse.message);
                         }
-                        location.href = "/section/" + oSelf.nSectionSequence;
+                        //location.href = "/section/" + oSelf.nSectionSequence;
+                        jQuery("#knockCount").text(oResponse.keyMessage);
                     }
                 });
     		},
