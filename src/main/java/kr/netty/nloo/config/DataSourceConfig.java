@@ -10,7 +10,6 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource("classpath:properties/common.properties")
-@PropertySource("classpath:properties/messages.properties")
 public class DataSourceConfig {
 
 	@Autowired
