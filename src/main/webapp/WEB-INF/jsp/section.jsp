@@ -45,8 +45,8 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-xs-7">
-                            <h3 class="list-group-item-heading">
-                            [<c:out value="${room.nickName}" />]
+                            <h4 class="list-group-item-heading">
+                            [<c:out value="${room.nickName}" />]</h4>
                                 <c:if test="${room.status == 'USE'}">
                                     <span class="useMessage">사용중입니다.</span>
                                 </c:if>
@@ -56,7 +56,7 @@
                                 <c:if test="${room.status == 'FIX'}">
                                     <span class="useMessage">이용불가</span>
                                 </c:if>
-                            </h3>
+
                         </div>
                         <div class="col-xs-5">
                             <c:if test="${room.status == 'USE'}">
@@ -78,22 +78,21 @@
             <div class="panel-body">
                 최근 15분  <span class="badge" id="knockCount">${ viewInfo.currentKnockCount }</span> 명이 급해요
                 <button type="button" class="btn btn-danger" id="a_knock">정말 급합니다<span class="glyphicon glyphicon-send" aria-hidden="true"></span></button><br>
-                <small>아시는 분은 아실꺼에요. 게임은 나중에.</small>
             </div>
         </div>
 
-		<div class="alert alert-danger" role="alert">
+		<div class="alert alert-success" role="alert">
 		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 		화장실도 청결하게, 감정배설도 청결하게.
-		</div>
-
-		<div class="panel panel-default">
 			<form name="graffitiForm" onsubmit="oGraffitiManager.add()">
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="input" id="comment" aria-describedby="basic-addon2">
 				<a href="#" class="input-group-addon btn button_graffiti_add" id="basic-addon2">끄적끄적</a>
 			</div>
 			</form>
+		</div>
+
+		<div class="panel panel-default">
 			<!-- Table -->
 			<table class="table">
 				<tbody>
@@ -106,7 +105,7 @@
 							<td align="right">
 								<button class="btn btn-info btn-xs button_graffiti_like" data-seq="${graffiti.sequence}" type="button">
 								 좋아요<span class="badge">${graffiti.likeCount}</span></button>
-								<button class="btn btn-xs button_graffiti_unlike right" data-seq="${graffiti.sequence}" type="button">
+								<button class="btn btn-xs button_graffiti_unlike" data-seq="${graffiti.sequence}" type="button">
 								 싫어요<span class="badge">${graffiti.unlikeCount}</span></button>
 							</td>
 						</tr>
