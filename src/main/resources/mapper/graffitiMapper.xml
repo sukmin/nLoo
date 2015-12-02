@@ -24,7 +24,7 @@
 
 	<insert id="saveGraffiti" parameterType="graffiti">
 		INSERT INTO graffiti (section_seq, comment, url_type, url, like_cnt, reg_ymdt, modify_ymdt)
-    	VALUE (#{sectionSequence}, #{comment}, #{urlType}, #{url}, #{likeCount}, now(), now())
+    	VALUE (#{sectionSequence}, #{comment}, #{urlType}, #{url}, 0, now(), now())
 	</insert>
 
 	<update id="updateGraffiti" parameterType="graffiti">
