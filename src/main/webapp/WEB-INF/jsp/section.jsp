@@ -105,9 +105,9 @@
 							</td>
 							<td align="right">
 								<button class="btn btn-info btn-xs button_graffiti_like" data-seq="${graffiti.sequence}" type="button">
-								 좋아요<span class="badge">${graffiti.likeCount}</span></button>
+								 좋아요<span class="badge badgeLikeCount">${graffiti.likeCount}</span></button>
 								<button class="btn btn-xs button_graffiti_unlike" data-seq="${graffiti.sequence}" type="button">
-								 싫어요<span class="badge">${graffiti.unlikeCount}</span></button>
+								 싫어요<span class="badge badgeUnlikeCount">${graffiti.unlikeCount}</span></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -277,8 +277,8 @@
                     }
                 });
             },
-            like : function(nCommentSeq) {
-                var oSelf = this;
+            like : function(oSelf) {
+    			var nCommentSeq = jQuery(oSelf).data("seq");
 
                 jQuery.ajax({
                     url : "/graffiti/user-like",
@@ -292,12 +292,17 @@
                         if (oResponse.code != "S001") {
                             alert(oResponse.message);
                         }
-                        location.href = "/section/" + oSelf.nSectionSequence;
+
+                        var idx = jQuery(".button_graffiti_like").index(oSelf);
+                        var cnt = parseInt(jQuery(".badgeLikeCount").eq(idx).text());
+                        jQuery(".badgeLikeCount").eq(idx).text(cnt+1);
+
+                        //location.href = "/section/" + oSelf.nSectionSequence;
                     }
                 });
             },
-            unlike : function(nCommentSeq) {
-                var oSelf = this;
+            unlike :  function(oSelf) {
+    			var nCommentSeq = jQuery(oSelf).data("seq");
 
                 jQuery.ajax({
                     url : "/graffiti/user-unlike",
@@ -311,7 +316,10 @@
                         if (oResponse.code != "S001") {
                             alert(oResponse.message);
                         }
-                        location.href = "/section/" + oSelf.nSectionSequence;
+                        var idx = jQuery(".button_graffiti_unlike").index(oSelf);
+                        var cnt = parseInt(jQuery(".badgeUnlikeCount").eq(idx).text());
+                        jQuery(".badgeUnlikeCount").eq(idx).text(cnt+1);
+                        //location.href = "/section/" + oSelf.nSectionSequence;
                     }
                 });
             },
@@ -330,14 +338,14 @@
 
                 jQuery(document).on("click", oSelf.sLikeSelector, function(event) {
                     event.preventDefault();
-                    var nSeq = jQuery(this).data("seq");
-                    oSelf.like(nSeq);
+                    //var nSeq = jQuery(this).data("seq");
+                    oSelf.like(this);
                 });
 
                 jQuery(document).on("click", oSelf.sUnlikeSelector, function(event) {
                     event.preventDefault();
-                    var nSeq = jQuery(this).data("seq");
-                    oSelf.unlike(nSeq);
+                    //var nSeq = jQuery(this).data("seq");
+                    oSelf.unlike(this);
                 });
             }
 
